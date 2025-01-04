@@ -25,8 +25,18 @@ body, html {
 }
 
 .header img {
-  max-width: 100%;
-  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensures image doesn't exceed container width */
+  height: auto;    /* Maintains aspect ratio */
+  display: block;  /* Removes unwanted inline spacing */
+  margin: 0 auto;  /* Centers the image horizontally */
+}
+
+/* Media query for phones (screen width <= 480px) */
+@media (max-width: 480px) {
+  .header img {
+    width: 25%; /* Set width to 1/4 of the original image size */
+    max-width: none; /* Remove max-width constraint */
+  }
 }
 
 /* Chat Container */
