@@ -67,17 +67,22 @@ function displayBotResponse(data) {
     appendMessage("Ostwald", "", botMessageId); // Changed from "model" to "Ostwald"
 
     const botMessageDiv = document.getElementById(botMessageId);
-    botMessageDiv.textContent = ""; // Ensure it's empty
+    botMessageDiv.innerHTML = ""; // Ensure it's empty and use innerHTML for HTML content
 
     let index = 0;
     const interval = setInterval(() => {
         if (index < data.length) {
-            botMessageDiv.textContent += data[index++]; // Gradually add characters
+            const char = data[index++];
+            botMessageDiv.innerHTML += char === ' ' ? ' ' : `<span class="${/india/i.test(char) ? 'highlight' : ''}">${char}</span>`;
         } else {
             clearInterval(interval); // Stop once the response is fully revealed
         }
     }, 30);
 }
+
+
+
+
 
 
 // Function to display an error message in the chat
@@ -111,6 +116,63 @@ function attachEventListeners() {
         appendMessage("user", `Selected File: ${selectedFile.name}`);
     });
 }
+// Existing code...
+
+// Function to handle copying code snippets
+// Existing code...
+
+// Function to handle copying code snippets
+// Existing code...
+
+// Function to handle copying code snippets
+
+function displayBotResponse(data) {
+    const botMessageId = `botMessage-${messageCount++}`; // Increment messageCount properly
+    appendMessage("Ostwald", "", botMessageId); // Changed from "model" to "Ostwald"
+
+    const botMessageDiv = document.getElementById(botMessageId);
+    botMessageDiv.innerHTML = ""; // Ensure it's empty and use innerHTML for HTML content
+
+    let index = 0;
+    const interval = setInterval(() => {
+        if (index < data.length) {
+            const char = data[index++];
+            botMessageDiv.innerHTML += char === ' ' ? ' ' : `<span class="${/india/i.test(char) ? 'highlight' : ''}">${char}</span>`;
+        } else {
+            clearInterval(interval); // Stop once the response is fully revealed
+        }
+    }, 30);
+}
+
+// Existing code...
+
+// Function to handle copying code snippets
+function copyToClipboard(text,button) {
+    navigator.clipboard.writeText(text).then(() => {
+        button.innerText = "Copied";
+        alert("Content copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+}
+
+// Example of how to append a message with a copy button for all messages
+// Function to append a message to the chat container
+function appendMessage(sender, message, id = null) {
+    const messageHtml = `
+      <div class="message ${sender}">
+        <div class="msg-header">${capitalizeFirstLetter(sender)}</div>
+        <div class="msg-body" ${id ? `id="${id}"` : ""}>${message}</div>
+        ${sender === 'model' || sender === 'Ostwald' ? '<button class="copy-button" onclick="copyToClipboard(this.previousElementSibling.innerText,this)">Copy</button>' : ''}
+      </div>
+    `;
+    
+    document.getElementById("chatContainer").insertAdjacentHTML('beforeend', messageHtml);
+    scrollToBottom();
+}
+
+// Function to display the bot's response with a gradual reveal effect
+
 
 // Initialize the chat application when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", attachEventListeners);

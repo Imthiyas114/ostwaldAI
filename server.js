@@ -20,6 +20,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.post("/get", upload.single("file"), async (req, res) => {
   const userInput = req.body.msg;
   const file = req.file;
+
+  if (userInput.toLowerCase() === "who are you") {
+    const candidate = "🌍 Hello, world! 🌍 I'm Ostwald, an AI assistant created to make your life easier, more productive, and a lot more fun. Whether you're curious, seeking support, or just in need of a good chat, I'm here for you. Let's explore the endless possibilities together!.";
+    return res.send(candidate);
+  }
+
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     let prompt = [userInput];
@@ -34,20 +40,21 @@ app.post("/get", upload.single("file"), async (req, res) => {
       };
       prompt.push(image);
     }
+
     const response = await model.generateContent(prompt);
-    console.log(response); // Log the response object for debugging
+    console.log(response); 
 
     const candidate = response?.response?.candidates?.[0]?.content?.parts?.[0];
 
     if (candidate?.text) {
       const generatedText = candidate.text;
-      res.send(generatedText);
+      return res.send(generatedText);
     } else {
-      res.status(500).send("Invalid response format from AI model");
+      return res.status(500).send("Invalid response format from AI model");
     }
   } catch (error) {
     console.error("Error generating response", error);
-    res.status(error.status || 500).send("Error occurred while generating response");
+    return res.status(error.status || 500).send("Error occurred while generating response");
   } finally {
     if (file) {
       fs.unlinkSync(file.path);
