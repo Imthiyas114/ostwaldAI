@@ -1,3 +1,11 @@
+/* Universal Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Responsive Body */
 body, html {
   height: 100%;
   margin: 0;
@@ -6,9 +14,10 @@ body, html {
   font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden; /* Prevent unnecessary scrollbars */
 }
 
+/* Header Styling */
 .header {
   text-align: center;
   padding: 15px 0;
@@ -16,12 +25,13 @@ body, html {
 }
 
 .header img {
-  height: 15em; 
-  width: 15rem; 
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
 }
 
+/* Chat Container */
 .chat-container {
-  flex: 1;
+  flex: 1; /* Allows it to scale proportionally */
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -29,12 +39,13 @@ body, html {
   gap: 10px;
 }
 
+/* Message Styling */
 .message {
   display: flex;
   align-items: flex-start;
-  max-width: 70%;
-  word-wrap: break-word; /* Wrap long words */
-  overflow-wrap: break-word; /* Ensure text doesn't overflow */
+  max-width: 90%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   position: relative;
 }
 
@@ -42,15 +53,11 @@ body, html {
   align-self: flex-end;
   text-align: right;
   flex-direction: row-reverse;
-  word-wrap: break-word; /* Break long text */
-  overflow-wrap: break-word;
-  max-width: 70%; /* Prevent overly wide user messages */
 }
 
 .message.model {
   align-self: flex-start;
   text-align: left;
-  flex-direction: row;
 }
 
 .message .msg-header {
@@ -61,8 +68,6 @@ body, html {
   margin-right: 5px;
   background-color: #406340;
   color: #ffffff;
-  flex-shrink: 0;
-  white-space: nowrap;
 }
 
 .message.model .msg-header {
@@ -76,74 +81,83 @@ body, html {
   border-radius: 10px;
   background-color: #1e1e1e;
   flex: 1;
-  word-wrap: break-word; /* Wrap long text */
-  overflow-wrap: break-word; /* Break overflowing words */
-  white-space: pre-wrap; /* Preserve formatting and wrap */
-  line-height: 1.5; /* Improve text readability */
+  white-space: pre-wrap;
+  line-height: 1.5;
 }
 
-.message.model .msg-body {
-  background: none;
-  color: #ffffff;
-}
-
+/* Footer Styling */
 .footer {
   display: flex;
-  justify-content: center; /* Center the footer horizontally */
-  align-items: center; /* Vertically align items */
-  padding: 15px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
   background-color: #615e5e;
   border-top: 1px solid #444;
-  margin: 0 400px; /* Add 400px margin on left and right */
-  border-radius: 20px; /* Rounded edges for the footer */
-  box-shadow: 0px 4px 8px rgba(179, 177, 177, 0.4); /* Add subtle shadow */
-  gap: 5px; /* Add spacing between elements */
+  gap: 5px;
 }
 
-.footer input {
+.footer input[type="text"] {
   flex: 1;
+  min-width: 200px;
   background-color: #030000;
   color: #f3eeee;
   border: none;
-  padding: 10px 15px;
+  padding: 10px;
   border-radius: 5px;
-  outline: none;
-  font-size: 16px;
-  margin-right: 10px; /* Space between input and button */
 }
 
 .footer button {
-  background-color: #114c7b;
+  background-color: #162a58;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.footer button#attachment {
-  background-color: #04affe;
 }
 
 .footer button:hover {
-  background-color: #4f5b66;
+  background-color: #0940a5;
 }
 
-.copy-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #114c7b;
-  color: #ffffff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px;
+/* Media Queries */
+@media (max-width: 1024px) {
+  .chat-container {
+    padding: 15px;
+  }
+
+  .message {
+    max-width: 95%;
+  }
 }
 
-.copy-button:hover {
-  background-color: #4f5b66;
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer input[type="text"],
+  .footer button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .chat-container {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-container {
+    padding: 5px;
+  }
+
+  .message {
+    max-width: 100%;
+  }
+
+  .footer {
+    padding: 5px;
+  }
 }
