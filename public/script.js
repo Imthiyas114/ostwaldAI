@@ -150,7 +150,7 @@ function displayBotResponse(data) {
 function copyToClipboard(text,button) {
     navigator.clipboard.writeText(text).then(() => {
         button.innerText = "Copied";
-        alert("Content copied to clipboard!");
+       
     }).catch(err => {
         console.error("Failed to copy: ", err);
     });
