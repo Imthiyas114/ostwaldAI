@@ -25,7 +25,13 @@ app.post("/get", upload.single("file"), async (req, res) => {
     const candidate = "🌍 Hello, world! 🌍 I'm Ostwald, an AI assistant created  by Imthiyas to make your life easier, more productive, and a lot more fun. Whether you're curious, seeking support, or just in need of a good chat, I'm here for you. Let's explore the endless possibilities together!.";
     return res.send(candidate);
   }
-
+ if (userInput.toLowerCase() === "who  is ") {
+    const candidate = "🌍 Hello, world! 🌍 I'm Ostwald, an AI assistant created  by Imthiyas to make your life easier, more productive, and a lot more fun. Whether you're curious, seeking support, or just in need of a good chat, I'm here for you. Let's explore the endless possibilities together!.";
+    return res.send(candidate);
+  }
+if (userInput.toLowerCase().includes("imthiyas")) {
+ const candidate = "Imthiyas is a brilliant person"; 
+return res.send(candidate); }
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     let prompt = [userInput];
