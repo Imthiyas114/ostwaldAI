@@ -163,13 +163,16 @@ function appendMessage(sender, message, id = null) {
       <div class="message ${sender}">
         <div class="msg-header">${capitalizeFirstLetter(sender)}</div>
         <div class="msg-body" ${id ? `id="${id}"` : ""}>${message}</div>
-        ${sender === 'model' || sender === 'Ostwald' ? '<button class="copy-button" onclick="copyToClipboard(this.previousElementSibling.innerText,this)">Copy</button>' : ''}
+        ${sender === 'model' || sender === 'Ostwald' 
+          ? '<button class="copy-button bg-primary" onclick="copyToClipboard(this.previousElementSibling.innerText, this)">Copy</button>' 
+          : ''}
       </div>
     `;
     
     document.getElementById("chatContainer").insertAdjacentHTML('beforeend', messageHtml);
     scrollToBottom();
 }
+
 
 // Function to display the bot's response with a gradual reveal effect
 

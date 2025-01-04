@@ -25,11 +25,10 @@ body, html {
 }
 
 .header img {
-  max-width: 100%;
-  height: auto; /* Maintain aspect ratio */
+  height: 15em; 
+  width: 15rem; 
 }
 
-/* Chat Container */
 .chat-container {
   flex: 1; /* Allows it to scale proportionally */
   display: flex;
